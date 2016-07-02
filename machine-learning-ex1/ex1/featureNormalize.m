@@ -10,22 +10,12 @@ X_norm = X;
 mu = zeros(1, size(X, 2));
 sigma = zeros(1, size(X, 2));
 
-mean_x1 = mean(X(:,1))
-mean_x2 = mean(X(:,2))
+for i=1:size(X, 2)
+  mu(1,i) = mean(X(:,i));
+  sigma(1,i) = std(X(:,i));
 
-std_x1 = std(X(:,1))
-std_x2 = std(X(:,2))
-
-X_norm(:,1) = (X_norm(:,1) - mean_x1) ./ std_x1;
-X_norm(:,2) = (X_norm(:,2) - mean_x2) ./ std_x2;
-
-mu = X_norm(:,1);
-sigma = X_norm(:,2);
-[X_norm, mu, sigma];
-
-
-
-
+  X_norm(:,i) = (X_norm(:,i) .- mu(1,i)) ./ sigma(1,i);
+end;
 
 % ============================================================
 
