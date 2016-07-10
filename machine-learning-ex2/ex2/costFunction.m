@@ -23,11 +23,7 @@ n = size(theta);
 %
 
 for j=1:n
-  for i=1:m
-    potent = -(theta' * X(i,:)');
-    grad(j) = grad(j) + (1 / (1 + e^potent) - y(i)) * X(i,j); 
-  end;
-  grad(j) = grad(j) / m;
+  grad(j) = (sum((1 ./ (1 + e .^(-(X * theta)))) .* X(:,j)) - sum(y .* X(:,j))) / m;
 end;
 
 for i=1:m
