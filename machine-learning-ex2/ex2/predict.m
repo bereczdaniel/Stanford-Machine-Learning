@@ -18,7 +18,7 @@ threshold = 0.5;
 %
 
 for i=1:m
-  probability = sigmoid(theta' * X(i,:)')
+  probability = sigmoid(theta' * X(i,:)');
   
   if (probability >= threshold)
     p(i) = 1;
