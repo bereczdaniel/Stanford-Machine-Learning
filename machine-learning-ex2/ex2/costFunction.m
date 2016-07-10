@@ -22,9 +22,7 @@ n = size(theta);
 % Note: grad should have the same dimensions as theta
 %
 
-for j=1:n
-  grad(j) = (sum((1 ./ (1 + e .^(-(X * theta)))) .* X(:,j)) - sum(y .* X(:,j))) / m;
-end;
+grad = ((sum((1 ./ (1 + e .^(-(X * theta)))) .* X))' - (sum(X .* y))') ./ m;
 
 for i=1:m
   J = J + (-y(i) * log(sigmoid(theta' * X(i,:)')) - (1 - y(i)) * log(1 - sigmoid(theta' * X(i,:)')));
