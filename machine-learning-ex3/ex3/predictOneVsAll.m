@@ -30,7 +30,10 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
-
+for i=1:m
+  probability = sigmoid(all_theta * X(i,:)');
+  [x, p(i)] = max(probability);
+end;
 
 
 
