@@ -30,6 +30,16 @@ J = 0;
 Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));
 
+X = [ones(m, 1) X];
+y_vector = zeros(m, num_labels);
+classes = zeros(1, num_labels);
+for j=1:num_labels
+  classes(j) = j;
+end;
+for i=1:m
+  y_vector(i, :) = y(i) == classes;  
+end;
+
 % ====================== YOUR CODE HERE ======================
 % Instructions: You should complete the code by working through the
 %               following parts.
@@ -65,13 +75,21 @@ Theta2_grad = zeros(size(Theta2));
 
 
 
+for i=1:m
+  a1 = X(i,:)';
+  
+  z2 = Theta1 * a1;
+  a2 = [1; sigmoid(z2)];
+  
+  z3 = Theta2 * a2;
+  a3 = sigmoid(z3);
+  
+  for k=1:num_labels
+    J = J + (-y_vector(i,k) * log(a3(k)) - (1 - y_vector(i, k)) * log(1 - a3(k)));
+  end;
+end;
 
-
-
-
-
-
-
+J = J / m;
 
 
 
