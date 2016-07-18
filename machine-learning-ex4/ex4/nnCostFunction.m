@@ -91,10 +91,24 @@ end;
 
 J = J / m;
 
+Theta1_sum = 0;
 
+for j=1:size(Theta1)(1)
+  for k=2:size(Theta1)(2)
+    Theta1_sum = Theta1_sum + Theta1(j,k) ^2;
+  end;
+end;
 
+Theta2_sum = 0;
+for j=1:size(Theta2)(1)
+  for k=2:size(Theta2)(2)
+    Theta2_sum = Theta2_sum + Theta2(j,k) ^2;
+  end;
+end;
 
+regularization_term = lambda / (2 * m) * (Theta1_sum + Theta2_sum);
 
+J = J + regularization_term;
 
 
 
