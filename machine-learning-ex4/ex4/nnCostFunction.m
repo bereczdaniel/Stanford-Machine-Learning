@@ -107,11 +107,9 @@ delta2 = delta2(:, 2:end);                                              % and no
 Delta1 = delta2' * a1;
 Delta2 = delta3' * a2; 
 
-Theta1_grad = Delta1 ./ m  + lambda * Theta1;                           
-Theta1_grad(1, :) = Theta1_grad(1, :) - lambda * Theta1(1, :);        %first row shouldn't be regularized
+Theta1_grad = Delta1 ./ m  + (lambda/m)*[zeros(size(Theta1, 1), 1) Theta1(:, 2:end)];                         
 
-Theta2_grad = Delta2 ./ m + lambda * Theta2;
-Theta2_grad(1, :) = Theta2_grad(1, :) - lambda * Theta2(1, :);        %first row shouldn't be regularized
+Theta2_grad = Delta2 ./ m + (lambda/m)*[zeros(size(Theta2, 1), 1) Theta2(:, 2:end)];
 
 
 % -------------------------------------------------------------
