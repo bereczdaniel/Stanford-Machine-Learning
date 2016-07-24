@@ -30,7 +30,9 @@ J = 0;
 Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));
 
-X = [ones(m, 1) X];
+
+
+
 y_vector = zeros(m, num_labels);
 classes = zeros(1, num_labels);
 for j=1:num_labels
@@ -73,32 +75,43 @@ end;
 %
 
 
+% Feed forward
+a1 = [ones(m, 1) X];
+
+z2 = a1 * Theta1';
+a2 = [ones(size(z2, 1), 1) sigmoid(z2)];
+
+z3 = a2 * Theta2';
+a3 = sigmoid(z3);
+h = a3;
+
+% Cost function without reg
+J = sum(sum((-y_vector .* log(h)) - (1 - y_vector) .* log(1 - h))) / m;
 
 
-for i=1:m
-  a1 = X(i,:)';
-  
-  z2 = Theta1 * a1;
-  a2 = [1; sigmoid(z2)];
-  
-  z3 = Theta2 * a2;
-  a3 = sigmoid(z3);
-  
-  for k=1:num_labels
-    J = J + (-y_vector(i,k) * log(a3(k)) - (1 - y_vector(i, k)) * log(1 - a3(k)));
-  end;
-end;
-
-J = J / m;
-
+% Calculating reg term
 Theta1_sum = sum(sum(Theta1(:, 2:size(Theta1)(2)) .^ 2));
 Theta2_sum = sum(sum(Theta2(:, 2:size(Theta2)(2)) .^ 2));
 
-
 regularization_term = lambda / (2 * m) * (Theta1_sum + Theta2_sum);
 
+
+% Adding reg term to cost
 J = J + regularization_term;
 
+% Back prop
+delta3 = a3 - y_vector;
+delta2 = delta3 * Theta2 .* sigmoidGradient([ones(size(z2, 1), 1) z2]); % we must add the bias unit
+delta2 = delta2(:, 2:end);                                              % and now take it out
+
+Delta1 = delta2' * a1;
+Delta2 = delta3' * a2; 
+
+Theta1_grad = Delta1 ./ m  + lambda * Theta1;                           
+Theta1_grad(1, :) = Theta1_grad(1, :) - lambda * Theta1(1, :);        %first row shouldn't be regularized
+
+Theta2_grad = Delta2 ./ m + lambda * Theta2;
+Theta2_grad(1, :) = Theta2_grad(1, :) - lambda * Theta2(1, :);        %first row shouldn't be regularized
 
 
 % -------------------------------------------------------------
