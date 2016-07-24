@@ -28,11 +28,15 @@ X = [ones(m, 1) X];
 
 for i=1:m
   a1 = X(i,:)';
+
   z2 = Theta1 * a1;
   a2 = sigmoid(z2);
   a2 = [1; a2];
+
   z3 = Theta2 * a2;
   a3 = sigmoid(z3);
+
+
   [x, p(i)] = max(a3);
 end;
 
