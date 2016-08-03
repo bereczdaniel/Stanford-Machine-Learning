@@ -48,12 +48,11 @@ x = zeros(n, 1);
 %
 %
 
-
-
-
-
-
-
+for i=1:length(word_indices)
+  %find will return a vector with zero rows, if the value is not represented in the vector, and a vector with one row if it is
+  %x(i) = size(find(word_indices == i))(2);
+  x(word_indices(i)) = 1;
+end;
 
 % =========================================================================
     
