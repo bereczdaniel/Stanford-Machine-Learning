@@ -12,7 +12,11 @@ temp = zeros(n, 1);
 for i = 1:num_iters
   for j = 1:n
     temp(j) = theta(j) - alpha / m * ((theta' * X' * X(:, j)) - sum(y .* X(:, j)));
+    																X' * y
   end;
+
+  theta = theta - alpha / m * (theta' * X') 
+
   theta = temp;
   J_history(i) = computeCostMulti(X, y, theta);
     

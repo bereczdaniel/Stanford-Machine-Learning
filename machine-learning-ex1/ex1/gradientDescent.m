@@ -11,9 +11,12 @@ for iter = 1:num_iters
     sumForThetaOne = 0;
     sumForThetaTwo = 0;
 
+    %compute gradient
     sumForThetaOne = sum(theta(1) * X(:,1)) + sum(theta(2) * X(:,2)) - sum(y);
     sumForThetaTwo = sum(theta(1) * X(:,2)) + sum(theta(2) * (X(:,2) .^2)) - sum(y .* X(:,2));
 
+
+    %simultaneous update with learning rate
     theta(1) = theta(1) - alpha * (1 / m) * sumForThetaOne;
     theta(2) = theta(2) - alpha * (1 / m) * sumForThetaTwo;
     
