@@ -27,23 +27,15 @@ centroids = zeros(K, n);
 %
 
 
-
-
 for i=1:K
-	count = 0;
 
+	%Selecting the data points assigned to the i_th centroid
+	indexes = (idx ==  i);
+	X_selected = X(indexes, :);
 
-	for j=1:m
-		if (idx(j) == i)
-			centroids(i,:) = centroids(i, :) + X(j, :);
-			count = count + 1;
-		end;
-	end;
-
-	centroids(i,:) = centroids(i, :) ./ count;
+	%compute the mean of the assigned data points
+	centroids(i, :) = mean(X_selected);
 end;
-
-
 
 % =============================================================
 
