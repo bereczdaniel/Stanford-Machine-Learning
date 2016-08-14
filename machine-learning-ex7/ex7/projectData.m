@@ -19,6 +19,7 @@ Z = zeros(m, K);
 %                    projection_k = x' * U(:, k);
 %
 
+
 U_reduce = U(:, 1: K);
 
 for i=1:m
