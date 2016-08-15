@@ -23,11 +23,10 @@ sigma2 = zeros(n, 1);
 
 
 
+mu = mean(X);
 
-
-
-
-
+%the built in variance function divides by 'm-1', so we had to replace it with 'm'
+sigma2 = (var(X) .* (m - 1)) ./ m;
 
 
 % =============================================================
