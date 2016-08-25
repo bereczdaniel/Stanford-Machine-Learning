@@ -41,16 +41,12 @@ Theta_grad = zeros(size(Theta));
 %
 
 
+product = X * Theta';
+difference = product - Y;
+squared = difference .^ 2;
+filtered = squared .* R;
 
-
-
-
-
-
-
-
-
-
+J = sum(sum(filtered)) / 2;
 
 
 
