@@ -48,6 +48,25 @@ filtered = squared .* R;
 
 J = sum(sum(filtered)) / 2 + lambda / 2 * (sum(sum(Theta .^ 2)) + sum(sum(X .^ 2)));
 
+for i=1:num_movies
+	for k=1:num_features
+		for j=1:num_users
+			if(R(i,j) == 1)
+				X_grad(i,k) = X_grad(i,k) + (Theta(j,:) * X(i,:)' - Y(i,j)) * Theta(j,k);
+			end;
+		end;
+	end;
+end;
+
+for j=1:num_users
+	for k=1:num_features
+		for i=1:num_movies
+			if(R(i,j) == 1)
+				Theta_grad(j,k) = Theta_grad(j,k) + (Theta(j,:) * X(i,:)' - Y(i,j)) * X(i,k);
+			end;
+		end;
+	end;
+end;
 
 % =============================================================
 
