@@ -54,7 +54,7 @@ for i=1:num_movies
 	Theta_filtered = Theta(idx, :);
 	Y_filtered = Y(i, idx);
 
-	X_grad(i, :) = (X(i, :) * Theta_filtered' - Y_filtered) * Theta_filtered;
+	X_grad(i, :) = (X(i, :) * Theta_filtered' - Y_filtered) * Theta_filtered + lambda * X(i, :);
 end;
 
 
@@ -63,7 +63,7 @@ for j=1:num_users
 	X_filtered = X(idx, :);
 	Y_filtered = Y(idx, j);
 
-	Theta_grad(j, :) = (Theta(j, :) * X_filtered' - Y_filtered') * X_filtered;
+	Theta_grad(j, :) = (Theta(j, :) * X_filtered' - Y_filtered') * X_filtered + lambda * Theta(j, :);
 end;
 
 % =============================================================
