@@ -46,9 +46,7 @@ difference = product - Y;
 squared = difference .^ 2;
 filtered = squared .* R;
 
-J = sum(sum(filtered)) / 2;
-
-
+J = sum(sum(filtered)) / 2 + lambda / 2 * (sum(sum(Theta .^ 2)) + sum(sum(X .^ 2)));
 
 
 % =============================================================
