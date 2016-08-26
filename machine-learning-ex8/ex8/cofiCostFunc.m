@@ -50,21 +50,21 @@ J = sum(sum(filtered)) / 2 + lambda / 2 * (sum(sum(Theta .^ 2)) + sum(sum(X .^ 2
 
 
 for i=1:num_movies
-
-	%azon sorok indexe, 
 	idx = find(R(i, :) == 1);
 	Theta_filtered = Theta(idx, :);
 	Y_filtered = Y(i, idx);
+
 	X_grad(i, :) = (X(i, :) * Theta_filtered' - Y_filtered) * Theta_filtered;
 end;
+
 
 for j=1:num_users
 	idx = find(R(:, j) == 1);
 	X_filtered = X(idx, :);
-	Y_filtered(j, idx);
-	Theta_grad(j, :) = (X_filtered * Theta(j, :)' - Y_filtered) * X_filtered;
-end;
+	Y_filtered = Y(idx, j);
 
+	Theta_grad(j, :) = (Theta(j, :) * X_filtered' - Y_filtered') * X_filtered;
+end;
 
 % =============================================================
 
