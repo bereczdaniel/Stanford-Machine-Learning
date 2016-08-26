@@ -48,27 +48,23 @@ filtered = squared .* R;
 
 J = sum(sum(filtered)) / 2 + lambda / 2 * (sum(sum(Theta .^ 2)) + sum(sum(X .^ 2)));
 
+
 for i=1:num_movies
-	for k=1:num_features
-		for j=1:num_users
-			if(R(i,j) == 1)
-				X_grad(i,k) = X_grad(i,k) + (Theta(j,:) * X(i,:)' - Y(i,j)) * Theta(j,k);
-			end;
-		end;
-		X_grad(i,k) = X_grad(i,k) + lambda * X(i,k);
-	end;
+
+	%azon sorok indexe, 
+	idx = find(R(i, :) == 1);
+	Theta_filtered = Theta(idx, :);
+	Y_filtered = Y(i, idx);
+	X_grad(i, :) = (X(i, :) * Theta_filtered' - Y_filtered) * Theta_filtered;
 end;
 
 for j=1:num_users
-	for k=1:num_features
-		for i=1:num_movies
-			if(R(i,j) == 1)
-				Theta_grad(j,k) = Theta_grad(j,k) + (Theta(j,:) * X(i,:)' - Y(i,j)) * X(i,k);
-			end;
-		end;
-		Theta_grad(j,k) = Theta_grad(j,k) + lambda  * Theta(j,k);
-	end;
+	idx = find(R(:, j) == 1);
+	X_filtered = X(idx, :);
+	Y_filtered(j, idx);
+	Theta_grad(j, :) = (X_filtered * Theta(j, :)' - Y_filtered) * X_filtered;
 end;
+
 
 % =============================================================
 
