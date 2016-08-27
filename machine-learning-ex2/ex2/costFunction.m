@@ -24,11 +24,11 @@ n = size(theta);
 
 grad = ((sum((1 ./ (1 + e .^(-(X * theta)))) .* X))' - (sum(X .* y))') ./ m;
 
-for i=1:m
-  J = J + (-y(i) * log(sigmoid(theta' * X(i,:)')) - (1 - y(i)) * log(1 - sigmoid(theta' * X(i,:)')));
-end;
+h = sigmoid(X * theta);
+J = sum(-y .* log(h) - (1 .- y) .* log(1 .- h)) / m;
+
+
 theta = grad;
-J = J / m;
 
 % =============================================================
 

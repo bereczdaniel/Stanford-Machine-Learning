@@ -22,15 +22,11 @@ grad = zeros(size(theta));
 reg = (lambda / m) .* theta;
 
 grad = ((sum((1 ./ (1 + e .^(-(X * theta)))) .* X))' - (sum(X .* y))') ./ m + reg;
-
-
 grad(1) = grad(1) - reg(1);
 
-for i=1:m
-  J = J + (-y(i) * log(sigmoid(theta' * X(i,:)')) - (1 - y(i)) * log(1 - sigmoid(theta' * X(i,:)')));
-end;
 
-J = J / m + lambda / 2 / m * sum(theta(2:n) .* theta(2:n));
+h = sigmoid(X * theta);
+J = sum(-y .* log(h) - (1 .- y) .* log(1 .- h)) / m + lambda / 2 / m * sum(theta(2:n) .* theta(2:n));
 
 % =============================================================
 

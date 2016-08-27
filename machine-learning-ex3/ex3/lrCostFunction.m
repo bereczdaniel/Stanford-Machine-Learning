@@ -45,15 +45,10 @@ grad = ((sum((1 ./ (1 + e .^(-(X * theta)))) .* X))' - (sum(X .* y))') ./ m + re
 
 grad(1) = grad(1) - reg(1);
 
-temp = X * theta;
 
-J = sum(-y .* log(sigmoid(temp)) - (1 .- y) .* log(1 .- sigmoid(temp))) / m + lambda / 2 / m * sum(theta(2:n) .* theta(2:n));
+h = sigmoid(X * theta);
 
-
-
-
-
-
+J = sum(-y .* log(h) - (1 .- y) .* log(1 .- h)) / m + lambda / 2 / m * sum(theta(2:n) .* theta(2:n));
 
 % =============================================================
 

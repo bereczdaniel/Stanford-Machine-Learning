@@ -35,11 +35,13 @@ Theta2_grad = zeros(size(Theta2));
 
 y_vector = zeros(m, num_labels);
 classes = zeros(1, num_labels);
+
 for j=1:num_labels
   classes(j) = j;
 end;
+
 for i=1:m
-  y_vector(i, :) = y(i) == classes;  
+  y_vector(i, :) = (y(i) == classes);  
 end;
 
 % ====================== YOUR CODE HERE ======================
